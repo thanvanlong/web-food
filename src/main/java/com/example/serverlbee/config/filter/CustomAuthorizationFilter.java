@@ -28,12 +28,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-//        response.setHeader("Access-Control-Allow-Origin", "*");
-//        response.setHeader("Access-Control-Allow-Headers", "*");
-//        response.setHeader("Access-Control-Allow-Methods", "*");
-//        response.setHeader("Access-Control-Allow-Credentials", "*");
-//        System.out.println(request.getO);
-//        stream(request.getCookies()).forEach(cookie -> System.out.println(cookie.getValue()));
         if(request.getRequestURI().equals("/api/login") ||
                 request.getRequestURI().equals("/api/refresh") ||
                 request.getRequestURI().contains("/api/user/active")){
@@ -47,7 +41,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                    Algorithm algorithm = Algorithm.HMAC256("secret".getBytes(StandardCharsets.UTF_8));
                    JWTVerifier jwtVerifier = JWT.require(algorithm).build();
                    DecodedJWT decodedJWT = jwtVerifier.verify(token);
-                   String phonenNumber = decodedJWT.getSubject();
+                   String phonenNumber = decodedJWT.getSubject().split("-")[0];
                    String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
                    Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
                    stream(roles).forEach(role -> authorities.add(new SimpleGrantedAuthority(role)));

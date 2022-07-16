@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class Booking {
     private String id;
     private String booker;
+    private User user;
     private String note;
     private int people;
     private String phone;

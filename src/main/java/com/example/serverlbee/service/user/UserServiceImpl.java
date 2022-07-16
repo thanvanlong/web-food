@@ -30,7 +30,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
         User user = userRepo.findByPhone(phoneNumber);
-        System.out.println(user + " Login");
         if(user == null){
             throw new UsernameNotFoundException("User not found in the database");
         }
@@ -93,15 +92,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
 
-//    public void saveProduct(Product product){
-//        productRepo.save(product);
-//    }
-//
-//    public Optional<Category> findByIdCategory(String id){
-//        return categoryRepo.findById(id);
-//    }
-//
-//    public List<Dish> findAll(){
-//        return dishRepo.findAll();
-//    }
 }

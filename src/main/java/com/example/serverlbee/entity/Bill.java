@@ -15,6 +15,7 @@ import java.util.List;
 public class Bill {
     private String id;
     private String orderer;
+    private User user;
     private String phone;
     private List<Product> productList;
     private List<Integer> quanityList;
