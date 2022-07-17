@@ -10,4 +10,6 @@ public interface BillService {
     int updateBill(String id);
 
     List<Bill> getBillByUserPhone(String userPhone);
+
+    List<Bill> getBillByStatus(String status);
 }

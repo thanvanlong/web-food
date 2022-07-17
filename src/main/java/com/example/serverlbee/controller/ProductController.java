@@ -67,5 +67,15 @@ public class ProductController {
         }
     }
 
+    @GetMapping("/product/bill/{staus}")
+    public ResponseEntity<?> getBillByStatus(@PathVariable String status){
+        List<Bill> bills = billService.getBillByStatus(status);
+        if(bills.size() > 0){
+            return ResponseEntity.ok(bills);
+        }else{
+            return ResponseEntity.status(404).body(new Error(404, "Chua co don hang nao :(("));
+        }
+    }
+
 
 }

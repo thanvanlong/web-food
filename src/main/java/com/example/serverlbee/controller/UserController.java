@@ -70,13 +70,27 @@ public class UserController {
     public ResponseEntity<User> updateUserInfo(@RequestBody User user){
         System.out.println(user);
         User u = userService.getUserByPhone(user.getPhone());
-        System.out.println(u + "update user");
         u.setPassword(user.getPassword());
         u.setUsername(user.getUsername());
         u.setAddress(user.getAddress());
 
         userService.save(u);
         return ResponseEntity.ok(u);
+    }
+
+    @PutMapping("/user/forgot")
+    public  ResponseEntity<?> forgotPassword(@RequestBody User user){
+        System.out.println(user);
+        User u = userService.getUserByPhone(user.getPhone());
+        System.out.println(u);
+        if(u == null){
+            return ResponseEntity.status(404).body(new Error(404, "SDT chua duoc dang ki vui long kiem tra lai!!!"));
+        }else{
+            u.setPassword(String.valueOf((int) (Math.random()*1000000 + 1000000)));
+            user.setPassword(u.getPassword());
+            userService.save(u);
+            return ResponseEntity.status(200).body(user);
+        }
     }
 
     @DeleteMapping("/user/{phonenumber}")
@@ -109,9 +123,6 @@ public class UserController {
                         .sign(algorithm);
                 Map<String, String> tokens = new HashMap<>();
                 tokens.put("access_token", access_token);
-//                tokens.put("refresh_token", refresh_token);
-//                Cookie cookie = new Cookie("access_token", access_token);
-//                response.addCookie(cookie);
                 response.setContentType(APPLICATION_JSON_VALUE);
                 new ObjectMapper().writeValue(response.getOutputStream(), tokens);
 

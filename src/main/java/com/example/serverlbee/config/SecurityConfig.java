@@ -47,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
         http.authorizeRequests().antMatchers("/api/login/**", "/api/refresh/**", "/api/user/signup", "/api/user/active/**").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/product").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.PUT,"/api/user/forgot").permitAll();
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/product/**", "/api/table/**")
                 .hasAuthority("ROLE_USER");

@@ -30,4 +30,9 @@ public class BillServiceImpl implements BillService{
 
         return billRepo.findByUser_Phone(userPhone);
     }
+
+    @Override
+    public List<Bill> getBillByStatus(String status) {
+        return billRepo.findByStatus(status);
+    }
 }

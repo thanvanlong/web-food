@@ -9,4 +9,6 @@ import java.util.List;
 public interface BillRepo extends MongoRepository<Bill, String> {
     List<Bill> findByUser(User user);
     List<Bill> findByUser_Phone(String phonenumber);
+
+    List<Bill> findByStatus(String status);
 }
