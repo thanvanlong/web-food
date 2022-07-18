@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.cors();
         http.authorizeRequests().antMatchers("/api/login/**", "/api/refresh/**", "/api/user/signup", "/api/user/active/**").permitAll();
-        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/product/**").permitAll();
+        http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/product").permitAll();
         http.authorizeRequests().antMatchers(HttpMethod.PUT,"/api/user/forgot").permitAll();
         http.authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/product/**", "/api/table/**")
@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("https://foodauth-1551d.web.app/", "http://localhost"));
+        configuration.setAllowedOrigins(List.of("https://foodauth-1551d.web.app", "http://localhost", "http://localhost:3000"));
         configuration.setAllowedMethods(List.of("HEAD",
                 "GET", "POST", "PUT", "DELETE", "PATCH"));
 //        // setAllowCredentials(true) is important, otherwise:
