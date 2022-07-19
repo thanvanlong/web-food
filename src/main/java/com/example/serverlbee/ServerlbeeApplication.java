@@ -33,14 +33,14 @@ public class ServerlbeeApplication {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public WebApplicationInitializer webApplicationInitializer(){
-        return new WebApplicationInitializer() {
-            @Override
-            public void onStartup(ServletContext servletContext) throws ServletException {
-                servletContext.getSessionCookieConfig().setDomain("http://localhost:3000/");
-                servletContext.getSessionCookieConfig().setHttpOnly(true);
-            }
-        };
-    }
+//    @Bean
+//    public WebApplicationInitializer webApplicationInitializer(){
+//        return new WebApplicationInitializer() {
+//            @Override
+//            public void onStartup(ServletContext servletContext) throws ServletException {
+//                servletContext.getSessionCookieConfig().setDomain("http://localhost:3000/");
+//                servletContext.getSessionCookieConfig().setHttpOnly(true);
+//            }
+//        };
+//    }
 }

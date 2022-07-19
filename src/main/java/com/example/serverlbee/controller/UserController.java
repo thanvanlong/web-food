@@ -106,17 +106,14 @@ public class UserController {
     @GetMapping("/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
             try {
-                System.out.println(request.getCookies() + "cookie");
                 List<Cookie> token =  stream(request.getCookies()).filter(cookie -> cookie.getName().equals("refresh_token")).collect(Collectors.toList());
                 stream(request.getCookies()).forEach(cookie -> System.out.println(cookie.getName()+": " + cookie.getValue()));
                 String refresh_token = token.get(0).getValue();
-                System.out.println(refresh_token +"refresh token");
                 Algorithm algorithm = Algorithm.HMAC256("secret".getBytes(StandardCharsets.UTF_8));
                 JWTVerifier jwtVerifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = jwtVerifier.verify(refresh_token);
                 String phonenNumber = decodedJWT.getSubject();
                 User user = userService.getUserByPhone(phonenNumber);
-//                System.out.println(user);
                 String access_token = JWT.create()
                         .withSubject(user.getPhone() + "-" + user.getUsername() + "-" + user.getAddress())
                         .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
