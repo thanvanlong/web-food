@@ -105,10 +105,10 @@ public class UserController {
 
     @GetMapping("/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        System.out.println("cookie");
             try {
                 System.out.println(request.getCookies() + "cookie");
                 List<Cookie> token =  stream(request.getCookies()).filter(cookie -> cookie.getName().equals("refresh_token")).collect(Collectors.toList());
+                stream(request.getCookies()).forEach(cookie -> System.out.println(cookie.getName()+": " + cookie.getValue()));
                 String refresh_token = token.get(0).getValue();
                 System.out.println(refresh_token +"refresh token");
                 Algorithm algorithm = Algorithm.HMAC256("secret".getBytes(StandardCharsets.UTF_8));
