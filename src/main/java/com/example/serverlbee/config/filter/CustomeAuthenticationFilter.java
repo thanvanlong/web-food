@@ -41,7 +41,7 @@ public class CustomeAuthenticationFilter extends UsernamePasswordAuthenticationF
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(phoneNumber, password);
 //        System.out.println(usernamePasswordAuthenticationToken);
-//        System.out.println(authenticationManager.authenticate(usernamePasswordAuthenticationToken));
+        System.out.println(authenticationManager.authenticate(usernamePasswordAuthenticationToken));
         return authenticationManager.authenticate(usernamePasswordAuthenticationToken);
     }
 
