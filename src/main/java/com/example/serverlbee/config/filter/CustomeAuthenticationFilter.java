@@ -61,7 +61,7 @@ public class CustomeAuthenticationFilter extends UsernamePasswordAuthenticationF
         Map<String, String> tokens = new HashMap<>();
         Cookie cookie = new Cookie("refresh_token", refresh_token);
         cookie.setHttpOnly(true);
-        cookie.setPath("/api");
+        cookie.setPath("/");
         cookie.setSecure(true);
         cookie.setMaxAge( 1 * 24 * 60 * 60 *1000);
         response.addCookie(cookie);
@@ -75,6 +75,7 @@ public class CustomeAuthenticationFilter extends UsernamePasswordAuthenticationF
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         Map<String, String> tokens = new HashMap<>();
         tokens.put("err", failed.getMessage() );
+        response.setStatus(404);
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
