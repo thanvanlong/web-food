@@ -29,7 +29,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         if(request.getRequestURI().equals("/api/login") ||
-                request.getRequestURI().contains("/api/refresh") ||
+                request.getRequestURI().equals("/api/refresh") ||
                 request.getRequestURI().contains("/api/user/active")){
             filterChain.doFilter(request, response);
         }else{

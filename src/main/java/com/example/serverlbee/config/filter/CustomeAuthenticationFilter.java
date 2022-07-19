@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.util.Arrays.stream;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 public class CustomeAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -36,10 +37,11 @@ public class CustomeAuthenticationFilter extends UsernamePasswordAuthenticationF
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String phoneNumber = request.getParameter("phonenumber");
         String password = request.getParameter("password");
+        stream(request.getCookies()).forEach(cookie -> System.out.println(cookie.getName()+": " + cookie.getValue()));
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(phoneNumber, password);
 //        System.out.println(usernamePasswordAuthenticationToken);
-        System.out.println(authenticationManager.authenticate(usernamePasswordAuthenticationToken));
+//        System.out.println(authenticationManager.authenticate(usernamePasswordAuthenticationToken));
         return authenticationManager.authenticate(usernamePasswordAuthenticationToken);
     }
 
@@ -59,7 +61,7 @@ public class CustomeAuthenticationFilter extends UsernamePasswordAuthenticationF
                 .withIssuer(request.getRequestURI())
                 .sign(algorithm);
         Map<String, String> tokens = new HashMap<>();
-        Cookie cookie = new Cookie("long", refresh_token);
+        Cookie cookie = new Cookie("refresh_token", refresh_token);
         cookie.setHttpOnly(true);
         cookie.setPath("/api");
         cookie.setSecure(true);
