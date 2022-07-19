@@ -37,11 +37,9 @@ public class CustomeAuthenticationFilter extends UsernamePasswordAuthenticationF
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String phoneNumber = request.getParameter("phonenumber");
         String password = request.getParameter("password");
-        stream(request.getCookies()).forEach(cookie -> System.out.println(cookie.getName()+": " + cookie.getValue()));
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
                 new UsernamePasswordAuthenticationToken(phoneNumber, password);
 //        System.out.println(usernamePasswordAuthenticationToken);
-        System.out.println(authenticationManager.authenticate(usernamePasswordAuthenticationToken));
         return authenticationManager.authenticate(usernamePasswordAuthenticationToken);
     }
 
@@ -61,12 +59,9 @@ public class CustomeAuthenticationFilter extends UsernamePasswordAuthenticationF
                 .withIssuer(request.getRequestURI())
                 .sign(algorithm);
         Map<String, String> tokens = new HashMap<>();
-        Cookie cookie = new Cookie("refresh_token", refresh_token);
-        cookie.setHttpOnly(true);
-        cookie.setPath("/api");
-        cookie.setSecure(true);
-        cookie.setMaxAge( 1 * 24 * 60 * 60 *1000);
-        response.addCookie(cookie);
+//        Cookie cookie = new Cookie("refresh_token", refresh_token);
+//        cookie.setMaxAge( 1 * 24 * 60 * 60 *1000);
+//        response.addCookie(cookie);
         tokens.put("access_token", access_token);
         tokens.put("refresh_token", refresh_token);
         response.setContentType(APPLICATION_JSON_VALUE);
