@@ -130,6 +130,7 @@ public class UserController {
                 response.setHeader("error", e.getMessage());
                 Map<String, String> tokens = new HashMap<>();
                 tokens.put("error_message", (e.getMessage() + "cookies"));
+                response.setStatus(400);
                 response.setContentType(APPLICATION_JSON_VALUE);
                 new ObjectMapper().writeValue(response.getOutputStream(), tokens);
             }
