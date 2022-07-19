@@ -116,7 +116,7 @@ public class UserController {
                 User user = userService.getUserByPhone(phonenNumber);
                 String access_token = JWT.create()
                         .withSubject(user.getPhone() + "-" + user.getUsername() + "-" + user.getAddress())
-                        .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 60 * 1000))
+                        .withExpiresAt(new Date(System.currentTimeMillis() + 10 * 1000))
                         .withIssuer(request.getRequestURI())
                         .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                         .sign(algorithm);
