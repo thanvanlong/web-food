@@ -103,7 +103,7 @@ public class UserController {
         return ResponseEntity.ok(new Error(404, "Delete failed"));
     }
 
-    @GetMapping("/refresh")
+    @PostMapping("/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
             try {
                 stream(request.getCookies()).forEach(cookie -> System.out.println(cookie.getName()+": " + cookie.getValue()));
