@@ -15,5 +15,6 @@ public class CookieConfig implements WebApplicationInitializer {
         servletContext.getSessionCookieConfig().setPath("/api");
         servletContext.getSessionCookieConfig().setSecure(true);
         servletContext.getSessionCookieConfig().setMaxAge(86400);
+//        servletContext.getSessionCookieConfig().setDomain("localhost");
     }
 }

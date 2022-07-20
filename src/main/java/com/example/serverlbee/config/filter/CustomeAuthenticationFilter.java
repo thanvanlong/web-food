@@ -62,6 +62,7 @@ public class CustomeAuthenticationFilter extends UsernamePasswordAuthenticationF
         Cookie cookie = new Cookie("refresh_token", refresh_token);
         cookie.setHttpOnly(true);
         cookie.setPath("/");
+        cookie.setDomain("foodapp-d55ab");
         cookie.setSecure(true);
         cookie.setMaxAge( 1 * 24 * 60 * 60 *1000);
         response.addCookie(cookie);
